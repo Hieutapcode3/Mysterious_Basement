@@ -8,7 +8,7 @@ public class GunControll : MonoBehaviour
 
     public float angle;
 
-
+    public GameObject Charactor;
     private void Awake()
     {
         if (Instance == null)
@@ -43,8 +43,14 @@ public class GunControll : MonoBehaviour
         if(transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270)
         {
             transform.localScale = new Vector3(transform.localScale.x, -Mathf.Abs(transform.localScale.y), transform.localScale.z);
-        }else
+            Charactor.transform.localEulerAngles = new Vector3(0, 0, 85.41f);
+        }
+        else
+        {
+            Charactor.transform.localEulerAngles = new Vector3(0, 0, -85.41f);
             transform.localScale = new Vector3(transform.localScale.x, Mathf.Abs(transform.localScale.y), transform.localScale.z);
+        }
+
 
     }
 }
