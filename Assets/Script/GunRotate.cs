@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunControll : MonoBehaviour
+public class GunRotate : MonoBehaviour
 {
-    public static GunControll Instance;
+    public static GunRotate Instance;
 
     public float angle;
 

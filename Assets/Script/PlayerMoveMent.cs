@@ -26,7 +26,11 @@ public class PlayerMoveMent : MonoBehaviour
     void Update()
     {
         Movement();
-        ChangeSprite(GunControll.Instance.angle);
+        ChangeSprite(GunRotate.Instance.angle);
+        if(Input.GetMouseButtonDown(0))
+        {
+            Shooting();
+        }
     }
 
     private void Movement()
@@ -81,5 +85,9 @@ public class PlayerMoveMent : MonoBehaviour
             bodyObject.GetComponent<SpriteRenderer>().flipX = false;
             headObject.GetComponent<SpriteRenderer>().flipX = false;
         }
+    }
+    private void Shooting()
+    {
+        anim.SetTrigger("Shooting");
     }
 }
