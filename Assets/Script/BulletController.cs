@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float speed = 2f;
+    private Vector2 moveDirection;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
+    }
+
+    public void SetMoveDirection(Vector2 direction)
+    {
+        moveDirection = direction.normalized;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            gameObject.SetActive(false);
+        }
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("va cham");
+            bool isCriticalhit = Random.Range(0f, 100f) < 30;
+            Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
+            collisionPoint.z = 0f;
+            TestingDamage.Instance.CreateDamageTxt(collisionPoint,isCriticalhit);
+            gameObject.SetActive(false );
+        }
+
     }
 }
