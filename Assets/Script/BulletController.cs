@@ -19,10 +19,6 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
-        {
-            gameObject.SetActive(false);
-        }
         if(collision.gameObject.tag == "Enemy")
         {
             Debug.Log("va cham");
@@ -33,5 +29,12 @@ public class BulletController : MonoBehaviour
             gameObject.SetActive(false );
         }
 
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
