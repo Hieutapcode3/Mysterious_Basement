@@ -11,12 +11,12 @@ public class TestingDamage : MonoBehaviour
     {
         Instance = this;
     }
-    public void CreateDamageTxt(Vector3 SpawnPos,bool isCriticalHit)
+    public void CreateDamageTxt(int damage,Vector3 SpawnPos,bool isCriticalHit)
     {
         Transform damageTransform = Instantiate(pfdamageTxt, SpawnPos, Quaternion.identity);
         Transform DamageTxtParent = GameObject.Find("DamageTxt").transform;
         DamageTxt damageUp = damageTransform.GetComponent<DamageTxt>();
         damageUp.transform.SetParent(DamageTxtParent);
-        damageUp.Setup(Random.Range(100,200), isCriticalHit);
+        damageUp.Setup(damage, isCriticalHit);
     }
 }

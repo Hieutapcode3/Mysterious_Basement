@@ -5,7 +5,9 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     public float speed = 2f;
+    public float knockbackForce;
     private Vector2 moveDirection;
+    private EnemyController enemy;
 
     void Update()
     {
@@ -19,17 +21,29 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("va cham");
-            bool isCriticalhit = Random.Range(0f, 100f) < 30;
-            Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
-            collisionPoint.z = 0f;
-            TestingDamage.Instance.CreateDamageTxt(collisionPoint,isCriticalhit);
-            gameObject.SetActive(false );
-        }
+            enemy = collision.gameObject.GetComponent<EnemyController>();
+            enemy.hasReachedTarget = true;
+            if (enemy != null)
+            {
+                Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
+                collisionPoint.z = 0f;
+                int damage = Random.Range(120, 150);
+                bool isCriticalhit = damage > 140;
+                TestingDamage.Instance.CreateDamageTxt(damage, collisionPoint, isCriticalhit);
+                enemy.healthSystem.Damage(damage);
+                Transform playerTransform = FindObjectOfType<PlayerMoveMent>().transform;
+                Vector2 knockbackDirection = (enemy.transform.position - playerTransform.position).normalized;
+                FindObjectOfType<BloodSystem>().SpawnBlood(enemy.transform.position, knockbackDirection);
+                enemy.ApplyKnockback(knockbackDirection, knockbackForce);
 
+                Debug.Log("Hit");
+                gameObject.SetActive(false);
+            }
+        }
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))

@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1074345913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1074345914}
+  m_Layer: 0
+  m_Name: HealBarPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1074345914
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074345913}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.87, y: 1.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3925549993067848473}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3925549992748734371
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,6 +270,7 @@ Transform:
   - {fileID: 3925549993163291066}
   - {fileID: 3925549994574005574}
   - {fileID: 3925549993319339454}
+  - {fileID: 1074345914}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -277,7 +308,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3925549993067848475}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -374,10 +405,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7c98c3b3723cb44b039c41a519f7dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 3
   seeker: {fileID: 3925549993067848469}
   nextWP: 0.5
+  hasReachedTarget: 0
+  isKnockedBack: 0
   Target: {fileID: 0}
+  pfhealthBar: {fileID: 1788695737932729334, guid: 8951ac4a7481bae4087fafc60904856e, type: 3}
+  healthBarPos: {fileID: 1074345914}
+  health: 500
   headTop: {fileID: 4237415750937681882, guid: eb30c203073c9194288a1d961847ffbf, type: 3}
   bodyTop: {fileID: -4870403058270250433, guid: eb30c203073c9194288a1d961847ffbf, type: 3}
   headRight: {fileID: 5431109626980445072, guid: eb30c203073c9194288a1d961847ffbf, type: 3}
@@ -386,6 +422,7 @@ MonoBehaviour:
   bodyDown: {fileID: 7052068526677087709, guid: eb30c203073c9194288a1d961847ffbf, type: 3}
   headObject: {fileID: 3925549994760276449}
   bodyObject: {fileID: 3925549993163291069}
+  pfEnemyDeadBody: {fileID: 0}
 --- !u!114 &3925549993067848469
 MonoBehaviour:
   m_ObjectHideFlags: 0

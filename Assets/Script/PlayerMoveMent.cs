@@ -12,15 +12,29 @@ public class PlayerMoveMent : MonoBehaviour
     [SerializeField] private Sprite bodyDown;
 
     [SerializeField] private GameObject headObject; 
-    [SerializeField] private GameObject bodyObject; 
+    [SerializeField] private GameObject bodyObject;
+    public Transform pfhealthBar;
+    public Transform healthBarPos;
+    private HealthSysytem healthSystem;
+    public static PlayerMoveMent instance;
 
     private Rigidbody2D rb;
     private Animator anim;
 
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        if(instance == null )
+            instance = this;
+    }
+    void Start()
+    {
+        healthSystem = new HealthSysytem(100);
+        Transform healthBarTransform = Instantiate(pfhealthBar, healthBarPos.transform.position, Quaternion.identity);
+        healthBarTransform.SetParent(healthBarPos);
+        HealthBar healthBar = healthBarTransform.GetComponent<HealthBar>();
+        healthBar.SetUp(healthSystem);
     }
 
     void Update()

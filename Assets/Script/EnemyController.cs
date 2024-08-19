@@ -2,16 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using System;
 
-public class EnemyMoveMent : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     public float moveSpeed;
+    private float originalMoveSpeed;
     public Seeker seeker;
     public float nextWP = 2f;
     private int currentWP = 0;
-    private bool hasReachedTarget = false;
+    public bool hasReachedTarget = false;
+    public bool isKnockedBack = false;  
     Path path;
     public Transform Target;
+    public Transform pfhealthBar;
+    public Transform healthBarPos;
+    public HealthSysytem healthSystem;
+    [SerializeField] private int health;
 
     [SerializeField] private Sprite headTop;
     [SerializeField] private Sprite bodyTop;
@@ -22,6 +29,7 @@ public class EnemyMoveMent : MonoBehaviour
 
     [SerializeField] private GameObject headObject;
     [SerializeField] private GameObject bodyObject;
+    [SerializeField] private Transform pfEnemyDeadBody;
 
     private SpriteRenderer headSpriteRenderer;
     private SpriteRenderer bodySpriteRenderer;
@@ -36,18 +44,27 @@ public class EnemyMoveMent : MonoBehaviour
 
     void Start()
     {
+        originalMoveSpeed = moveSpeed;
         Target = FindObjectOfType<PlayerMoveMent>().gameObject.transform;
         headSpriteRenderer = headObject.GetComponent<SpriteRenderer>();
         bodySpriteRenderer = bodyObject.GetComponent<SpriteRenderer>();
         InvokeRepeating("CalculatePath", 0, 0.5f);
+        healthSystem = new HealthSysytem(health);
+        Transform healthBarTransform = Instantiate(pfhealthBar, healthBarPos.transform.position, Quaternion.identity);
+        healthBarTransform.SetParent(healthBarPos);
+        HealthBar healthBar = healthBarTransform.GetComponent<HealthBar>();
+        healthBar.SetUp(healthSystem);
+        healthSystem.OnDeath += HealthSystem_OnDeath;
     }
 
     void Update()
     {
+        health = healthSystem.GetHealth();
+        if (isKnockedBack) return;  
+
         if (path != null && !hasReachedTarget && currentWP < path.vectorPath.Count)
         {
             MoveToTarget();
-            Debug.Log("moving");
         }
 
         float distanceToTarget = Vector2.Distance(transform.position, Target.position);
@@ -55,6 +72,7 @@ public class EnemyMoveMent : MonoBehaviour
         {
             hasReachedTarget = false;
         }
+
     }
 
     void CalculatePath()
@@ -93,7 +111,7 @@ public class EnemyMoveMent : MonoBehaviour
             {
                 rb.velocity = Vector2.zero;
                 anim.SetInteger("State", 0);
-                hasReachedTarget = true; 
+                hasReachedTarget = true;
             }
         }
     }
@@ -130,5 +148,27 @@ public class EnemyMoveMent : MonoBehaviour
             headSpriteRenderer.flipX = true;
             bodySpriteRenderer.flipX = true;
         }
+    }
+
+    public void ApplyKnockback(Vector2 direction, float force)
+    {
+        isKnockedBack = true;
+        rb.velocity = Vector2.zero; 
+        rb.AddForce(direction * force, ForceMode2D.Impulse);  
+        Invoke("ResetKnockback", 0.2f);
+    }
+
+    private void ResetKnockback()
+    {
+        isKnockedBack = false;
+        rb.velocity = Vector2.zero;
+        moveSpeed = originalMoveSpeed;
+    }
+
+    private void HealthSystem_OnDeath(object sender, EventArgs e)
+    {
+        Vector2 flyDirection = (transform.position - PlayerMoveMent.instance.transform.position).normalized;
+        FlyingBody.Create(pfEnemyDeadBody, transform.position, flyDirection);
+        gameObject.SetActive(false);
     }
 }
