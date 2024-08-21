@@ -4,20 +4,8 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    public float speed = 2f;
     public float knockbackForce;
-    private Vector2 moveDirection;
     private EnemyController enemy;
-
-    void Update()
-    {
-        transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
-    }
-
-    public void SetMoveDirection(Vector2 direction)
-    {
-        moveDirection = direction.normalized;
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

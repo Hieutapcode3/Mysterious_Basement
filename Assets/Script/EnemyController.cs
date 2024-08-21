@@ -152,11 +152,13 @@ public class EnemyController : MonoBehaviour
 
     public void ApplyKnockback(Vector2 direction, float force)
     {
+        float knockbackDuration = 0.07f; 
         isKnockedBack = true;
-        rb.velocity = Vector2.zero; 
-        rb.AddForce(direction * force, ForceMode2D.Impulse);  
-        Invoke("ResetKnockback", 0.2f);
+        rb.velocity = Vector2.zero;
+        rb.AddForce(direction * force * 10f, ForceMode2D.Impulse);
+        Invoke("ResetKnockback", knockbackDuration);  
     }
+
 
     private void ResetKnockback()
     {

@@ -27,7 +27,7 @@ public class BloodSystem : MonoBehaviour
     }
     public void SpawnBloodDeath(Vector2 position, Vector2 direction)
     {
-        int bloodCount = 100;
+        int bloodCount = 50; 
 
         for (int i = 0; i < bloodCount; i++)
         {
@@ -35,15 +35,20 @@ public class BloodSystem : MonoBehaviour
             blood.transform.parent = transform;
             SpriteRenderer spriteRenderer = blood.GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = bloodSprites[Random.Range(0, bloodSprites.Length)];
-
             float spread = 2f; 
-            float randomAngle = Random.Range(-spread, spread);
-            Vector2 randomDirection = RotateVector(direction, randomAngle);
-            float randomDistance = Random.Range(0.0f, 3.0f); 
+            float randomAngle = Random.Range(-spread, spread); 
+            Vector2 randomDirection = RotateVector(direction, randomAngle); 
+            float randomDistance = Random.Range(0.0f, 2.0f);
+            float randomMovement = Random.Range(-1f, 1f); 
+
             blood.transform.position = position + randomDirection * randomDistance;
-            blood.transform.localScale = Vector3.one * Random.Range(0.5f, 1.5f); 
+            blood.transform.localScale = Vector3.one * Random.Range(0.5f, 1.5f);
+
+            Vector2 moveOffset = Vector2.Perpendicular(randomDirection) * randomMovement;
+            blood.transform.position += (Vector3)moveOffset * Time.deltaTime;
         }
     }
+
     private Vector2 RotateVector(Vector2 vector, float angle)
     {
         float rad = angle * Mathf.Deg2Rad;
@@ -54,5 +59,6 @@ public class BloodSystem : MonoBehaviour
             sin * vector.x + cos * vector.y
         );
     }
+
 
 }

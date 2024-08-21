@@ -43,11 +43,11 @@ public class GunRotate : MonoBehaviour
         if(transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270)
         {
             transform.localScale = new Vector3(transform.localScale.x, -Mathf.Abs(transform.localScale.y), transform.localScale.z);
-            Charactor.transform.localEulerAngles = new Vector3(0, 0, 85.41f);
+            Charactor.transform.localEulerAngles = new Vector3(0, 0, 90);
         }
         else
         {
-            Charactor.transform.localEulerAngles = new Vector3(0, 0, -85.41f);
+            Charactor.transform.localEulerAngles = new Vector3(0, 0, -90f);
             transform.localScale = new Vector3(transform.localScale.x, Mathf.Abs(transform.localScale.y), transform.localScale.z);
         }
 
