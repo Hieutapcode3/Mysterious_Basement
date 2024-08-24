@@ -888,6 +888,7 @@ GameObject:
   - component: {fileID: 431646354188502123}
   - component: {fileID: 431646354188502120}
   - component: {fileID: 431646354188502127}
+  - component: {fileID: 1366003111}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1072,6 +1073,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pfdamageTxt: {fileID: 1688635955114064124, guid: 34d013a84cc4bbb4d9f3d7c9029788fa, type: 3}
+--- !u!114 &1366003111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431646354188502118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8bf484a3a9a9a47996dc400756e87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &431646354256960154
 GameObject:
   m_ObjectHideFlags: 0

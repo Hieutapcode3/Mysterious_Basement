@@ -51,7 +51,8 @@ public class PlayerMoveMent : MonoBehaviour
     {
         float dirX = Input.GetAxisRaw("Horizontal");
         float dirY = Input.GetAxisRaw("Vertical");
-        rb.velocity = new Vector2(dirX * m_speed, dirY * m_speed);
+        Vector2 direction = new Vector2(dirX, dirY).normalized; 
+        rb.velocity = direction * m_speed;
         if (dirX != 0 && dirY != 0)
         {
             anim.SetInteger("State", 3);
