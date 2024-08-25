@@ -105,4 +105,8 @@ public class PlayerMoveMent : MonoBehaviour
     {
         anim.SetTrigger("Shooting");
     }
+    public void TeleportTo(Transform transformPos)
+    {
+        gameObject.transform.position = transformPos.position;
+    }
 }
