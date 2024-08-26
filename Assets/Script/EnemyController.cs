@@ -171,6 +171,6 @@ public class EnemyController : MonoBehaviour
     {
         Vector2 flyDirection = (transform.position - PlayerMoveMent.instance.transform.position).normalized;
         FlyingBody.Create(pfEnemyDeadBody, transform.position, flyDirection);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

@@ -9,7 +9,6 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("GameObject Name: " + gameObject.name);
         bar = transform.Find("Bar");
     }
 

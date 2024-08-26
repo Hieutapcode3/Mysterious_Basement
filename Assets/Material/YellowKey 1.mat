@@ -68,6 +68,7 @@ Material:
     - Vector1_b1324e3bc27a4c909f958938a4d59c88: 0.1
     - Vector1_bde7728599494f2d892d2d657272b6e5: 0
     - Vector1_f2b9f35d65804983bc9ff7101c044621: 0
+    - _AlphaSmooth: 0.1
     - _EnableExternalAlpha: 0
     m_Colors:
     - Color_80639164c7fc4b9dbc220aeeb32daff7: {r: 1, g: 0.8575926, b: 0, a: 0}

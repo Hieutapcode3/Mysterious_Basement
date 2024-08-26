@@ -2719,7 +2719,7 @@
     },
     "m_Name": "AlphaSmooth",
     "m_DefaultReferenceName": "Vector1_b1324e3bc27a4c909f958938a4d59c88",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_AlphaSmooth",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,

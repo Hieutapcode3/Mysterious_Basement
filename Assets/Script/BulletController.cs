@@ -13,7 +13,7 @@ public class BulletController : MonoBehaviour
         {
             enemy = collision.gameObject.GetComponent<EnemyController>();
             enemy.hasReachedTarget = true;
-            if (enemy != null)
+            if (enemy != null && enemy.enabled == true)
             {
                 Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
                 collisionPoint.z = 0f;
@@ -25,8 +25,6 @@ public class BulletController : MonoBehaviour
                 Vector2 knockbackDirection = (enemy.transform.position - playerTransform.position).normalized;
                 FindObjectOfType<BloodSystem>().SpawnBlood(enemy.transform.position, knockbackDirection);
                 enemy.ApplyKnockback(knockbackDirection, knockbackForce);
-
-                Debug.Log("Hit");
                 gameObject.SetActive(false);
             }
         }

@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class KeyCheck : MonoBehaviour
 {
     public ColorType keyColor;
+    [SerializeField] private Material material;
+    [SerializeField] private List<GameObject> enemiesInRoom;
     public enum ColorType
     {
         Red,
@@ -19,7 +22,9 @@ public class KeyCheck : MonoBehaviour
     {
         StartCoroutine(BounceEffect());
     }
-
+    private void Update()
+    {
+    }
     private IEnumerator BounceEffect()
     {
         Vector3 originalPosition = transform.position;
@@ -34,14 +39,49 @@ public class KeyCheck : MonoBehaviour
             yield return null; 
         }
     }
+    private IEnumerator ActivateEnemies()
+    {
+        foreach (GameObject enemy in enemiesInRoom)
+        {
+            enemy.SetActive(true);
+            EnemyController enemyController = enemy.GetComponent<EnemyController>();
+            enemyController.enabled = false;
+
+            DissolveEffect dissolve = enemy.GetComponent<DissolveEffect>();
+            if (dissolve != null)
+            {
+                dissolve.StopDissolve();
+            }
+        }
+        yield return new WaitForSeconds(1.2f);
+        foreach (GameObject enemy in enemiesInRoom)
+        {
+            EnemyController enemyController = enemy.GetComponent<EnemyController>();
+            if (enemyController != null)
+            {
+                enemyController.enabled = true;
+            }
+        }
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("touch");
             PlayerInven playerInventory = collision.GetComponent<PlayerInven>();
             playerInventory.PickupKey(keyColor);
-            Destroy(gameObject);
+            StartCoroutine(ActivateEnemies());
+            material.SetFloat("_AlphaSmooth", 1);
+            StartCoroutine(DestroyObject());
         }
+    }
+    private IEnumerator DestroyObject()
+    {
+        yield return new WaitForSeconds(1.2f);
+        material.SetFloat("_AlphaSmooth", .1f);
+        Destroy(gameObject);
+
     }
 }

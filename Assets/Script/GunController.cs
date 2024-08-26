@@ -117,8 +117,7 @@ public class GunController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        bulletShell.transform.position = endPosition;
-        bulletShell.transform.rotation = Quaternion.Euler(0f, 0f, targetRotationZ);
+        bulletShell.transform.SetPositionAndRotation(endPosition, Quaternion.Euler(0f, 0f, targetRotationZ));
     }
 
 }
