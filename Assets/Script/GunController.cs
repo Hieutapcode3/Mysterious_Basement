@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GunController : MonoBehaviour
 {
@@ -8,28 +9,79 @@ public class GunController : MonoBehaviour
     public Transform shootStartPoint;
     public float bulletSpeed = 20f;
     public LayerMask hitLayers;
+    private float timeBetweenShots = 0.2f;
+    private float timeSinceLastShot = 0f;
+    private bool canShoot = true;
+    [SerializeField] private float bulletMax = 12;
+    [SerializeField] private float bulletRemain;
 
     private Vector3 targetPosition;
     private Vector3 direction;
 
     private ObjectPool objectPool;
+    public GunType gunType;
+    [SerializeField] private Text bulletCountTxt;
+    [SerializeField] private Sprite pistolSprite;
+    [SerializeField] private Sprite shotgunSprite;
+    [SerializeField] private Sprite M4Sprite;
+    [SerializeField] private Transform[] Gloves;
+    [SerializeField] private SpriteRenderer sprite;
+
+    public enum GunType
+    {
+        Pistol,
+        Shotgun,
+        M4
+    }
 
     void Start()
     {
         shootEffect.SetActive(false);
         objectPool = ObjectPool.instance;
+        bulletRemain = bulletMax;
+        gunType = GunType.Pistol;
+        UpdateGun();  
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        timeSinceLastShot += Time.deltaTime;
+        if (Input.GetMouseButtonDown(0) && timeSinceLastShot >= timeBetweenShots && canShoot)
         {
+            timeSinceLastShot = 0f;
+            PlayerMoveMent.instance.ShootingAnim();
             StartCoroutine(ShootEffectCoroutine());
             ShootBullet();
             CreateBulletShell();
         }
 
+        // Switching guns
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            gunType = GunType.Pistol;
+            
+
+            UpdateGun();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            gunType = GunType.Shotgun;
+            
+            UpdateGun();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            gunType = GunType.M4;
+            
+            UpdateGun();
+        }
+
         UpdateRaycast();
+
+        if (Input.GetKeyDown(KeyCode.R) && bulletRemain != bulletMax)
+        {
+            StartCoroutine(ReloadBullet());
+        }
     }
 
     private IEnumerator ShootEffectCoroutine()
@@ -56,11 +108,25 @@ public class GunController : MonoBehaviour
 
     private void ShootBullet()
     {
-        GameObject bullet = objectPool.SpawnFromPool("Bullet", shootStartPoint.position, Quaternion.identity);
-        bullet.transform.right = direction;
+        if (bulletRemain > 0 && canShoot)
+        {
+            bulletRemain -= 1;
+            GameObject bullet = objectPool.SpawnFromPool("Bullet", shootStartPoint.position, Quaternion.identity);
+            if (bulletRemain == 0)
+                bulletCountTxt.color = Color.red;
+            else
+                bulletCountTxt.color = Color.white;
 
-        float distance = Vector3.Distance(shootStartPoint.position, targetPosition);
-        StartCoroutine(MoveBullet(bullet, distance));
+            bulletCountTxt.text = bulletRemain.ToString() + "/" + bulletMax;
+            bullet.transform.right = direction;
+            float distance = Vector3.Distance(shootStartPoint.position, targetPosition);
+            StartCoroutine(MoveBullet(bullet, distance));
+        }
+        else
+        {
+            StartCoroutine(ReloadBullet());
+            bulletRemain = bulletMax;
+        }
     }
 
     private IEnumerator MoveBullet(GameObject bullet, float distance)
@@ -93,22 +159,24 @@ public class GunController : MonoBehaviour
     private IEnumerator MoveAndRotateBulletShell(GameObject bulletShell)
     {
         Vector3 startPosition = bulletShell.transform.position;
-        float heightTransformUp = Random.Range(1f,2f);
+        float heightTransformUp = Random.Range(1f, 2f);
         float angle = GunRotate.Instance.angle;
         Vector3 endPosition = startPosition + Vector3.up * heightTransformUp;
-        if(angle >= -150 && angle < -90)
+
+        if (angle >= -150 && angle < -90)
         {
-             endPosition = startPosition + Vector3.left * heightTransformUp;
+            endPosition = startPosition + Vector3.left * heightTransformUp;
         }
-        else if(angle >= -90 && angle < -30)
+        else if (angle >= -90 && angle < -30)
         {
-             endPosition = startPosition + Vector3.right * heightTransformUp;
+            endPosition = startPosition + Vector3.right * heightTransformUp;
         }
 
-        float durationMove = 0.5f; 
-        float durationRotate = 1f; 
+        float durationMove = 0.5f;
+        float durationRotate = 1f;
         float elapsedTime = 0;
         float targetRotationZ = Random.Range(0f, 360f);
+
         while (elapsedTime < durationMove)
         {
             bulletShell.transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / durationMove);
@@ -117,18 +185,43 @@ public class GunController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
         bulletShell.transform.SetPositionAndRotation(endPosition, Quaternion.Euler(0f, 0f, targetRotationZ));
     }
 
+    private IEnumerator ReloadBullet()
+    {
+        canShoot = false;
+        bulletRemain = bulletMax;
+        bulletCountTxt.color = Color.white;
+        PlayerMoveMent.instance.ReloadBulletAnim();
+        yield return new WaitForSeconds(0.75f);
+        bulletCountTxt.text = bulletRemain.ToString() + "/" + bulletMax;
+        canShoot = true;
+    }
+
+    private void UpdateGun()
+    {
+        switch (gunType)
+        {
+            case GunType.Pistol:
+                sprite.sprite = pistolSprite;
+                Gloves[0].position = new Vector3(-0.108f, -0.006f, 0);
+                Gloves[1].position = new Vector3(0.017f, -0.01f, 0);
+                Gloves[1].rotation = Quaternion.Euler(0, 0, 0);
+                break;
+            case GunType.Shotgun:
+                sprite.sprite = shotgunSprite;
+                Gloves[0].position = new Vector3(-0.165f, 0.49f, 0);
+                Gloves[1].position = new Vector3(0.321f, -0.48f, 0);
+                Gloves[1].rotation = Quaternion.Euler(0, 0, 110);
+                break;
+            case GunType.M4:
+                sprite.sprite = M4Sprite;
+                Gloves[0].position = new Vector3(-0.095f, 0.27f, 0);
+                Gloves[1].position = new Vector3(0.262f, -0.615f, 0);
+                Gloves[1].rotation = Quaternion.Euler(0, 0, 110);
+                break;
+        }
+    }
 }
-
-
-
-//private void OnDrawGizmos()
-//{
-//    if (shootStartPoint != null)
-//    {
-//        Gizmos.color = Color.red;
-//        Gizmos.DrawLine(shootStartPoint.position, targetPosition);
-//    }
-//}

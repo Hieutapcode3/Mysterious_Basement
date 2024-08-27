@@ -49,7 +49,7 @@ public class ObjectPool : MonoBehaviour
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
-        objectToSpawn.transform.rotation = rotation;
+        objectToSpawn.transform.rotation = Quaternion.Euler(0,0,rotation.eulerAngles.z);
 
         objectToSpawn.transform.SetParent(transform);
 

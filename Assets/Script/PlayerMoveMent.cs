@@ -41,10 +41,6 @@ public class PlayerMoveMent : MonoBehaviour
     {
         Movement();
         ChangeSprite(GunRotate.Instance.angle);
-        if(Input.GetMouseButtonDown(0))
-        {
-            Shooting();
-        }
     }
 
     private void Movement()
@@ -101,9 +97,13 @@ public class PlayerMoveMent : MonoBehaviour
             headObject.GetComponent<SpriteRenderer>().flipX = false;
         }
     }
-    private void Shooting()
+    public void ShootingAnim()
     {
         anim.SetTrigger("Shooting");
+    }
+    public void ReloadBulletAnim()
+    {
+        anim.SetTrigger("Reload");
     }
     public void TeleportTo(Transform transformPos)
     {
