@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     public float nextWP = 2f;
     private int currentWP = 0;
     public bool hasReachedTarget = false;
-    public bool isKnockedBack = false;  
+    public bool isKnockedBack = false;
     Path path;
     public Transform Target;
     public Transform pfhealthBar;
@@ -30,6 +30,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject headObject;
     [SerializeField] private GameObject bodyObject;
     [SerializeField] private Transform pfEnemyDeadBody;
+    [SerializeField] private Transform rightHand;
 
     private SpriteRenderer headSpriteRenderer;
     private SpriteRenderer bodySpriteRenderer;
@@ -60,7 +61,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         health = healthSystem.GetHealth();
-        if (isKnockedBack) return;  
+        if (isKnockedBack) return;
 
         if (path != null && !hasReachedTarget && currentWP < path.vectorPath.Count)
         {
@@ -72,7 +73,7 @@ public class EnemyController : MonoBehaviour
         {
             hasReachedTarget = false;
         }
-
+        Attacking();
     }
 
     void CalculatePath()
@@ -152,11 +153,11 @@ public class EnemyController : MonoBehaviour
 
     public void ApplyKnockback(Vector2 direction, float force)
     {
-        float knockbackDuration = 0.07f; 
+        float knockbackDuration = 0.07f;
         isKnockedBack = true;
         rb.velocity = Vector2.zero;
         rb.AddForce(direction * force * 10f, ForceMode2D.Impulse);
-        Invoke("ResetKnockback", knockbackDuration);  
+        Invoke("ResetKnockback", knockbackDuration);
     }
 
 
@@ -172,5 +173,17 @@ public class EnemyController : MonoBehaviour
         Vector2 flyDirection = (transform.position - PlayerMoveMent.instance.transform.position).normalized;
         FlyingBody.Create(pfEnemyDeadBody, transform.position, flyDirection);
         Destroy(gameObject);
+    }
+    private void Attacking()
+    {
+        float distanceToPlayer = Vector2.Distance(transform.position, PlayerMoveMent.instance.transform.position);
+        if (distanceToPlayer < 1f)
+        {
+            anim.SetTrigger("Attack");
+            Vector2 directionToPlayer = (PlayerMoveMent.instance.transform.position - rightHand.position).normalized;
+            rightHand.position = Vector2.MoveTowards(rightHand.position, PlayerMoveMent.instance.transform.position, moveSpeed * Time.deltaTime);
+            Debug.Log("Attack");
+
+        }
     }
 }

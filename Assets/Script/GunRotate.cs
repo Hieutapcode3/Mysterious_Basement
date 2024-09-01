@@ -15,10 +15,6 @@ public class GunRotate : MonoBehaviour
         {
             Instance = this;
         }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
-        }
     }
 
     void Start()
@@ -40,14 +36,16 @@ public class GunRotate : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
         transform.rotation = rotation;
 
-        if(transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270)
+        if(transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270 )
         {
             transform.localScale = new Vector3(transform.localScale.x, -Mathf.Abs(transform.localScale.y), transform.localScale.z);
-            Charactor.transform.localEulerAngles = new Vector3(0, 0, 90);
+            if(Charactor != null) 
+                Charactor.transform.localEulerAngles = new Vector3(0, 0, 90);
         }
         else
         {
-            Charactor.transform.localEulerAngles = new Vector3(0, 0, -90f);
+            if (Charactor != null)
+                Charactor.transform.localEulerAngles = new Vector3(0, 0, -90f);
             transform.localScale = new Vector3(transform.localScale.x, Mathf.Abs(transform.localScale.y), transform.localScale.z);
         }
 

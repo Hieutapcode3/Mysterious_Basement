@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using static KeyCheck;
+using Pathfinding;
 
 public class DoorCheck : MonoBehaviour
 {
@@ -37,5 +38,9 @@ public class DoorCheck : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         anim.SetInteger("Check", 0);  
+    }
+    public void RescanMap()
+    {
+        AstarPath.active.Scan();
     }
 }

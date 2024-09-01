@@ -99,11 +99,23 @@ public class PlayerMoveMent : MonoBehaviour
     }
     public void ShootingAnim()
     {
-        anim.SetTrigger("Shooting");
+        if (GunController.instance.gunType == GunController.GunType.M4)
+            anim.SetTrigger("M4Shoot");
+        else
+            anim.SetTrigger("Shooting");
     }
-    public void ReloadBulletAnim()
+    public void ReloadBulletAnim(GunController.GunType guntype)
     {
-        anim.SetTrigger("Reload");
+        string reloadAnim = "Reload";
+
+        if (guntype == GunController.GunType.Pistol)
+            reloadAnim += "Pistol";
+        else if (guntype == GunController.GunType.Shotgun)
+            reloadAnim += "ShotGun";
+        else
+            reloadAnim += "M4";
+
+        anim.SetTrigger(reloadAnim);
     }
     public void TeleportTo(Transform transformPos)
     {

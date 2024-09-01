@@ -17,9 +17,25 @@ public class BulletController : MonoBehaviour
             {
                 Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
                 collisionPoint.z = 0f;
-                int damage = Random.Range(120, 150);
-                bool isCriticalhit = damage > 140;
-                TestingDamage.Instance.CreateDamageTxt(damage, collisionPoint, isCriticalhit);
+                int maxDamage;
+                int damage;
+                if (GunController.instance.gunType == GunController.GunType.Pistol)
+                {
+                    maxDamage = 150;
+                    damage = Random.Range(120, 150);
+                }
+                else if (GunController.instance.gunType == GunController.GunType.Shotgun)
+                {
+                    maxDamage = 80;
+                    damage = Random.Range(60, 80);
+                }
+                else
+                {
+                    maxDamage = 50;
+                    damage = Random.Range(30, 50);
+                }
+                bool isCriticalHit = damage > maxDamage * 0.9f;
+                TestingDamage.Instance.CreateDamageTxt(damage, collisionPoint, isCriticalHit);
                 enemy.healthSystem.Damage(damage);
                 Transform playerTransform = FindObjectOfType<PlayerMoveMent>().transform;
                 Vector2 knockbackDirection = (enemy.transform.position - playerTransform.position).normalized;
@@ -37,4 +53,5 @@ public class BulletController : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
 }

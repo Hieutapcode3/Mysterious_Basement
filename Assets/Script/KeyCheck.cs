@@ -69,7 +69,6 @@ public class KeyCheck : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("touch");
             PlayerInven playerInventory = collision.GetComponent<PlayerInven>();
             playerInventory.PickupKey(keyColor);
             StartCoroutine(ActivateEnemies());
