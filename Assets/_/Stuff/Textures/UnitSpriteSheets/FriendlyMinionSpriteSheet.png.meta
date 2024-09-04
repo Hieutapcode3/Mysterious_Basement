@@ -1,7 +1,34 @@
 fileFormatVersion: 2
 guid: 35e6affcbfad6a543b196f7010fd021d
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -1651187399820722163
+    second: FriendlyMinionSpriteSheet_0
+  - first:
+      213: -8509243011259432496
+    second: FriendlyMinionSpriteSheet_1
+  - first:
+      213: 5895732682375850480
+    second: FriendlyMinionSpriteSheet_2
+  - first:
+      213: 7984773607164457718
+    second: FriendlyMinionSpriteSheet_3
+  - first:
+      213: -3250008294075637686
+    second: FriendlyMinionSpriteSheet_4
+  - first:
+      213: 5185404112181894984
+    second: FriendlyMinionSpriteSheet_5
+  - first:
+      213: -7894772434951058631
+    second: FriendlyMinionSpriteSheet_6
+  - first:
+      213: 7111493195641344269
+    second: FriendlyMinionSpriteSheet_7
+  - first:
+      213: 6459678393823931863
+    second: FriendlyMinionSpriteSheet_8
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -41,7 +68,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,7 +153,196 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: FriendlyMinionSpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 423
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d00c518eecdc519e0800000000000000
+      internalID: -1651187399820722163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FriendlyMinionSpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 422
+        width: 49
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d1086ea09819e980800000000000000
+      internalID: -8509243011259432496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FriendlyMinionSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 424
+        width: 57
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f96caf33a9d1d150800000000000000
+      internalID: 5895732682375850480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FriendlyMinionSpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 469
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f2b3f26a4d9fce60800000000000000
+      internalID: 7984773607164457718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FriendlyMinionSpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 467
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a406c820da6a5e2d0800000000000000
+      internalID: -3250008294075637686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FriendlyMinionSpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 292
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84f937b019146f740800000000000000
+      internalID: 5185404112181894984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FriendlyMinionSpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 290
+        width: 39
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93b42387c42207290800000000000000
+      internalID: -7894772434951058631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FriendlyMinionSpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 296
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d015fc4126911b260800000000000000
+      internalID: 7111493195641344269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FriendlyMinionSpriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 136
+        width: 51
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dd242b364365a950800000000000000
+      internalID: 6459678393823931863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

@@ -66,12 +66,12 @@ Material:
     - Vector1_4b9402c2ce664efd83da89d0f42b8149: 1
     - Vector1_92124b2a058e49a08bbc3a81ed1485e7: 0
     - Vector1_b1324e3bc27a4c909f958938a4d59c88: 0.1
-    - Vector1_bde7728599494f2d892d2d657272b6e5: 0
+    - Vector1_bde7728599494f2d892d2d657272b6e5: 3
     - Vector1_f2b9f35d65804983bc9ff7101c044621: 0
-    - _AlphaSmooth: 0.03
+    - _AlphaSmooth: 0.1
     - _EnableExternalAlpha: 0
     m_Colors:
-    - Color_80639164c7fc4b9dbc220aeeb32daff7: {r: 1, g: 0.20553625, b: 0, a: 0}
+    - Color_80639164c7fc4b9dbc220aeeb32daff7: {r: 0.990566, g: 0.20588237, b: 0, a: 0}
     - Color_c6bd067c1f6f4a6d86feb7a555c54bf2: {r: 1, g: 0.8973636, b: 0, a: 0}
     - Vector3_ab7276f7715643ed9b59757f1b1bba54: {r: -119.07, g: 9.4, b: -84.85, a: -11.22}
     - Vector4_d04da15e179441e782589348a5dc74ed: {r: 0, g: 0, b: 0, a: -0.67}

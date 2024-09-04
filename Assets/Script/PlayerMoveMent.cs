@@ -14,8 +14,9 @@ public class PlayerMoveMent : MonoBehaviour
     [SerializeField] private GameObject headObject; 
     [SerializeField] private GameObject bodyObject;
     public Transform pfhealthBar;
+    [SerializeField] private int health;
     public Transform healthBarPos;
-    private HealthSysytem healthSystem;
+    public HealthSysytem healthSystem;
     public static PlayerMoveMent instance;
 
     private Rigidbody2D rb;
@@ -30,7 +31,7 @@ public class PlayerMoveMent : MonoBehaviour
     }
     void Start()
     {
-        healthSystem = new HealthSysytem(100);
+        healthSystem = new HealthSysytem(200);
         Transform healthBarTransform = Instantiate(pfhealthBar, healthBarPos.transform.position, Quaternion.identity);
         healthBarTransform.SetParent(healthBarPos);
         HealthBar healthBar = healthBarTransform.GetComponent<HealthBar>();
@@ -39,6 +40,7 @@ public class PlayerMoveMent : MonoBehaviour
 
     void Update()
     {
+        health = healthSystem.GetHealth();
         Movement();
         ChangeSprite(GunRotate.Instance.angle);
     }

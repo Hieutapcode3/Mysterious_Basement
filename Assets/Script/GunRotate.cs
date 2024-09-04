@@ -17,11 +17,6 @@ public class GunRotate : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         RotateGun();

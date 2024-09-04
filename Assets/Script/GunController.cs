@@ -19,7 +19,8 @@ public class GunController : MonoBehaviour
     private float pistolBulletsRemain;
     private float shotgunBulletsRemain;
     private float M4BulletsRemain;
-
+    public bool hasShotGun;
+    public bool hasM4;
     private Vector3 targetPosition;
     private Vector3 direction;
 
@@ -81,12 +82,12 @@ public class GunController : MonoBehaviour
             gunType = GunType.Pistol;
             UpdateGun();
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && hasShotGun)
         {
             gunType = GunType.Shotgun;
             UpdateGun();
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && hasM4)
         {
             gunType = GunType.M4;
             UpdateGun();

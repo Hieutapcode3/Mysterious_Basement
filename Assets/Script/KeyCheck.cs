@@ -43,26 +43,39 @@ public class KeyCheck : MonoBehaviour
     {
         foreach (GameObject enemy in enemiesInRoom)
         {
-            enemy.SetActive(true);
-            EnemyController enemyController = enemy.GetComponent<EnemyController>();
-            enemyController.enabled = false;
-
+            enemy.SetActive(true); 
+            EnemyPunch enemyPunch = enemy.GetComponent<EnemyPunch>();
+            EnemyArcher enemyArcher = enemy.GetComponent<EnemyArcher>();
+            if (enemyPunch != null)
+            {
+                enemyPunch.enabled = false;
+            }
+            if (enemyArcher != null)
+            {
+                enemyArcher.enabled = false;
+            }
             DissolveEffect dissolve = enemy.GetComponent<DissolveEffect>();
             if (dissolve != null)
             {
-                dissolve.StopDissolve();
+                dissolve.StopDissolve(); 
             }
         }
         yield return new WaitForSeconds(1.2f);
         foreach (GameObject enemy in enemiesInRoom)
         {
-            EnemyController enemyController = enemy.GetComponent<EnemyController>();
-            if (enemyController != null)
+            EnemyPunch enemyPunch = enemy.GetComponent<EnemyPunch>();
+            if (enemyPunch != null)
             {
-                enemyController.enabled = true;
+                enemyPunch.enabled = true; 
+            }
+            EnemyArcher enemyArcher = enemy.GetComponent<EnemyArcher>();
+            if (enemyArcher != null)
+            {
+                enemyArcher.enabled = true; 
             }
         }
     }
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)

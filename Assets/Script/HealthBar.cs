@@ -27,7 +27,7 @@ public class HealthBar : MonoBehaviour
         }
         else
         {
-            healthPercent = healthSysytem.GethealthPercent();
+            healthPercent = healthSysytem.GethealthPercent() * 2;
         }
 
         bar.transform.localScale = new Vector3(healthPercent, bar.transform.localScale.y, 1);

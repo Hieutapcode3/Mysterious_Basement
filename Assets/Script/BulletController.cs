@@ -5,14 +5,19 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     public float knockbackForce;
-    private EnemyController enemy;
-
+    private Enemy enemy;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            enemy = collision.gameObject.GetComponent<EnemyController>();
-            enemy.hasReachedTarget = true;
+            if(collision.gameObject.name == "PfEnemyPunch")
+            {
+                enemy = collision.gameObject.GetComponent<EnemyPunch>();
+            }
+            else if(collision.gameObject.name == "PfEnemyArcher")
+            {
+                enemy = collision.gameObject.GetComponent<EnemyArcher>();
+            }
             if (enemy != null && enemy.enabled == true)
             {
                 Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
