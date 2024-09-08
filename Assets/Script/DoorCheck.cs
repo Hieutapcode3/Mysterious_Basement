@@ -17,8 +17,6 @@ public class DoorCheck : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player inside");
-
             PlayerInven playerInventory = collision.GetComponent<PlayerInven>();
 
             if (playerInventory.currentKey.HasValue && playerInventory.currentKey.Value == doorColor)

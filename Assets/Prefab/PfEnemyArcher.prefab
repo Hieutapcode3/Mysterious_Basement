@@ -833,7 +833,7 @@ MonoBehaviour:
   pfEnemyDeadBody: {fileID: 7601939882164026775, guid: f28623389b3c4fb4892eab0af477828e, type: 3}
   angle: 0
   firePoint: {fileID: 1627984106449445858}
-  startingAngle: 15
+  startingAngle: 10
   convergenceTime: 1
   playerLayer:
     serializedVersion: 2

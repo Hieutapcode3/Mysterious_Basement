@@ -7,7 +7,7 @@ public class EnemyArcher : Enemy
 {
     public float angle;
     public Transform firePoint;
-    public float startingAngle = 15f;
+    public float startingAngle = 10f;
     public float convergenceTime = 2f;
     public LayerMask playerLayer;
     public Transform Hand;
@@ -127,7 +127,6 @@ public class EnemyArcher : Enemy
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player")){
-            Debug.Log("Player in side");
             isPlayerInRange = true;
             StartCoroutine(CastRaycastsRoutine());
         }

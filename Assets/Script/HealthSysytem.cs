@@ -24,10 +24,10 @@ public class HealthSysytem
         return (float)health / healthMax;
     }
 
-    public float GetEnemyhealthPercent()
-    {
-        return (float)health / healthMax;
-    }
+    //public float GetEnemyhealthPercent()
+    //{
+    //    return (float)health / healthMax;
+    //}
 
     public void Damage(int damage)
     {

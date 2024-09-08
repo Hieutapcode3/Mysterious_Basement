@@ -23,7 +23,11 @@ public class HealthBar : MonoBehaviour
         float healthPercent;
         if (gameObject.name.Contains("pfHealthBarEnemy"))
         {
-            healthPercent = healthSysytem.GetEnemyhealthPercent();
+            healthPercent = healthSysytem.GethealthPercent() * 1.5f;
+        }
+        else if(gameObject.name.Contains("pfHealthBarBoss"))
+        {
+            healthPercent = healthSysytem.GethealthPercent() * 5.5f;
         }
         else
         {

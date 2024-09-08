@@ -7,6 +7,9 @@ TagManager:
   - Bullet
   - Enemy
   - Door
+  - Bullet_2
+  - MachineGun
+  - Shield
   layers:
   - Default
   - TransparentFX
