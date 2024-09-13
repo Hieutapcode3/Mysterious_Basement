@@ -10,10 +10,27 @@ public class BulletController : MonoBehaviour
     private int damage;
     private bool isCriticalHit;
     private Cannon canon;
+    private ShieldTransformer shieldTransformer;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (gameObject.CompareTag("Bullet"))
         {
+            if (GunController.instance.gunType == GunController.GunType.Pistol)
+            {
+                maxDamage = 150;
+                damage = Random.Range(120, 150);
+            }
+            else if (GunController.instance.gunType == GunController.GunType.Shotgun)
+            {
+                maxDamage = 80;
+                damage = Random.Range(60, 80);
+            }
+            else
+            {
+                maxDamage = 50;
+                damage = Random.Range(30, 50);
+            }
+            isCriticalHit = damage > maxDamage * 0.9f;
             if (collision.CompareTag("Enemy"))
             {
                 if (collision.gameObject.name == "PfEnemyPunch")
@@ -27,24 +44,7 @@ public class BulletController : MonoBehaviour
                 if (enemy != null && enemy.enabled == true)
                 {
                     Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
-                    collisionPoint.z = 0f;
-
-                    if (GunController.instance.gunType == GunController.GunType.Pistol)
-                    {
-                        maxDamage = 150;
-                        damage = Random.Range(120, 150);
-                    }
-                    else if (GunController.instance.gunType == GunController.GunType.Shotgun)
-                    {
-                        maxDamage = 80;
-                        damage = Random.Range(60, 80);
-                    }
-                    else
-                    {
-                        maxDamage = 50;
-                        damage = Random.Range(30, 50);
-                    }
-                    isCriticalHit = damage > maxDamage * 0.9f;
+                    collisionPoint.z = 0f;                    
                     TestingDamage.Instance.CreateDamageTxt(damage, collisionPoint, isCriticalHit);
                     enemy.healthSystem.Damage(damage);
                     Transform playerTransform = FindObjectOfType<PlayerMoveMent>().transform;
@@ -57,9 +57,6 @@ public class BulletController : MonoBehaviour
             else if (collision.CompareTag("MachineGun"))
             {
                 canon = collision.gameObject.GetComponent<Cannon>();
-                maxDamage = 100;
-                damage = Random.Range(80, maxDamage);
-                isCriticalHit = damage > maxDamage * 0.9f;
                 TestingDamage.Instance.CreateDamageTxt(damage, collision.gameObject.transform.position, isCriticalHit);
                 canon.healthSystem.Damage(damage);
                 gameObject.SetActive(false);
@@ -68,6 +65,14 @@ public class BulletController : MonoBehaviour
             {
                 gameObject.SetActive(false);
 
+            }
+            else if (collision.CompareTag("ShieldTransformer"))
+            {
+                shieldTransformer = collision.gameObject.GetComponent<ShieldTransformer>();
+                if(shieldTransformer.GetHealth() > 0)
+                    TestingDamage.Instance.CreateDamageTxt(damage, collision.gameObject.transform.position, isCriticalHit);
+                shieldTransformer.healthSystem.Damage(damage);
+                gameObject.SetActive(false);
             }
         }
         

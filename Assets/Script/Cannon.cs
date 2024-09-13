@@ -15,6 +15,7 @@ public class Cannon : MonoBehaviour
     public Transform healthBarPos;
     public HealthSysytem healthSystem;
     [SerializeField] protected int health;
+    private int maxhealth;
     private bool isDestroy;
 
     public Transform Racks;
@@ -22,7 +23,9 @@ public class Cannon : MonoBehaviour
     [SerializeField] private BoxCollider2D col;
     private Animator anim;
     [SerializeField] private GameObject mainCam;
-    [SerializeField] private GameObject zoomCam; 
+    [SerializeField] private GameObject zoomCam;
+    [SerializeField] private List<GameObject> phases;
+    [SerializeField] private bool isBoss;
 
     private void Awake()
     {
@@ -41,6 +44,7 @@ public class Cannon : MonoBehaviour
         HealthBar healthBar = healthBarTransform.GetComponent<HealthBar>();
         healthBar.SetUp(healthSystem);
         anim.SetBool("CanShoot", true);
+        maxhealth = health;
     }
 
     private void Update()
@@ -54,6 +58,8 @@ public class Cannon : MonoBehaviour
             if(!isShooting )
                 StartCoroutine(Shooting());
         }
+        if(isBoss)
+            ActiveShield();
     }
 
     private void RotateToPlayer()
@@ -139,7 +145,7 @@ public class Cannon : MonoBehaviour
     private IEnumerator MoveBullet(GameObject bullet, Vector3 direction)
     {
         float elapsedTime = 0;
-        while (elapsedTime < 1.5f)
+        while (elapsedTime < 3f)
         {
             bullet.transform.position += direction * bulletSpeed * Time.unscaledDeltaTime;
             elapsedTime += Time.unscaledDeltaTime;
@@ -159,6 +165,15 @@ public class Cannon : MonoBehaviour
         {
             col.enabled = false;
         }
+    }
+    private void ActiveShield()
+    {
+        if(health < maxhealth * 0.8f && health >= maxhealth * 0.5f)
+            phases[0].SetActive(true);
+        else if(health < maxhealth * 0.5f && health >= maxhealth * 0.3f)
+            phases[1].SetActive(true);
+        else if(health < maxhealth * 0.3f)
+            phases[2].SetActive(true);
     }
 }
 

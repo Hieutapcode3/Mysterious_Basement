@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3620214787557637859}
   - component: {fileID: 135001322368710245}
   - component: {fileID: -6409417793640927768}
+  - component: {fileID: 7575619443357064654}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -123,3 +124,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockbackForce: 1
+--- !u!50 &7575619443357064654
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3620214787557637858}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
